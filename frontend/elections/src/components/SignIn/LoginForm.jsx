@@ -1,0 +1,190 @@
+
+
+// import React from 'react';
+
+// function LoginForm({ nationalID, setNationalID, name, setName, handleLogin }) {
+//   return (
+//     <div className="text-right">
+//       <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">تسجيل الدخول</h2>
+//       <input
+//         type="text"
+//         placeholder="الرقم الوطني"
+//         value={nationalID}
+//         onChange={(e) => setNationalID(e.target.value)}
+//         className="w-full px-4 py-2 mb-4 text-right border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+//       />
+//       <input
+//         type="text"
+//         placeholder="الاسم"
+//         value={name}
+//         onChange={(e) => setName(e.target.value)}
+//         className="w-full px-4 py-2 mb-4 text-right border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+//       />
+//       <button
+//         onClick={handleLogin}
+//         className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+//       >
+//         تسجيل الدخول
+//       </button>
+//     </div>
+//   );
+// }
+
+// export default LoginForm;
+
+///////////////////////////////////////////validation///////////////
+
+
+// import React, { useState } from 'react';
+
+// function LoginForm({ nationalID, setNationalID, name, setName, handleLogin }) {
+//   const [errors, setErrors] = useState({ nationalID: '', name: '' });
+
+//   const validate = () => {
+//     let isValid = true;
+//     const newErrors = { nationalID: '', name: '' };
+
+//     // National ID validation
+//     const nationalIDRegex = /^\d{10}$/;
+//     if (!nationalIDRegex.test(nationalID)) {
+//       newErrors.nationalID = 'الرقم الوطني غير صالح';
+//       isValid = false;
+//     }
+
+//     // Name validation (example: only allow Arabic letters and spaces)
+//     const nameRegex = /^[\u0621-\u064A\s]+$/;
+//     if (!nameRegex.test(name)) {
+//       newErrors.name = 'الاسم غير صالح';
+//       isValid = false;
+//     }
+
+//     setErrors(newErrors);
+//     return isValid;
+//   };
+
+//   const handleSubmit = () => {
+//     if (validate()) {
+//       handleLogin();
+//     }
+//   };
+
+//   return (
+//     <div className="text-right">
+//       <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">تسجيل الدخول</h2>
+//       <input
+//         type="text"
+//         placeholder="الرقم الوطني"
+//         value={nationalID}
+//         onChange={(e) => setNationalID(e.target.value)}
+//         className={`w-full px-4 py-2 mb-4 text-right border rounded-lg focus:outline-none focus:ring-2 ${
+//           errors.nationalID ? 'border-red-500' : 'border-gray-300'
+//         }`}
+//       />
+//       {errors.nationalID && <p className="text-red-500 text-sm">{errors.nationalID}</p>}
+//       <input
+//         type="text"
+//         placeholder="الاسم"
+//         value={name}
+//         onChange={(e) => setName(e.target.value)}
+//         className={`w-full px-4 py-2 mb-4 text-right border rounded-lg focus:outline-none focus:ring-2 ${
+//           errors.name ? 'border-red-500' : 'border-gray-300'
+//         }`}
+//       />
+//       {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+//       <button
+//         onClick={handleSubmit}
+//         className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+//       >
+//         تسجيل الدخول
+//       </button>
+//     </div>
+//   );
+// }
+
+// export default LoginForm;
+
+
+/////////////////////////////////////////////////
+
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+function LoginForm({ nationalID, setNationalID, name, setName, handleLogin }) {
+  const [errors, setErrors] = useState({ nationalID: '', name: '' });
+
+  const validate = () => {
+    let isValid = true;
+    const newErrors = { nationalID: '', name: '' };
+
+    // National ID validation
+    if (!nationalID) {
+      newErrors.nationalID = 'يرجى إدخال الرقم الوطني';
+      isValid = false;
+    } else if (nationalID.length !== 10) {
+      newErrors.nationalID = 'يجب أن يتكون الرقم الوطني من 10 أرقام';
+      isValid = false;
+    } else {
+      const nationalIDRegex = /^\d{10}$/;
+      if (!nationalIDRegex.test(nationalID)) {
+        newErrors.nationalID = 'الرقم الوطني يجب أن يحتوي على أرقام فقط';
+        isValid = false;
+      }
+    }
+
+    // Name validation
+    if (!name) {
+      newErrors.name = 'يرجى إدخال الاسم';
+      isValid = false;
+    } else {
+      const nameRegex = /^[\u0621-\u064A\s]+$/;
+      if (!nameRegex.test(name)) {
+        newErrors.name = 'الاسم يجب أن يحتوي على أحرف عربية ومسافات فقط';
+        isValid = false;
+      }
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = () => {
+    if (validate()) {
+      handleLogin();
+    }
+  };
+
+  return (
+    <div className="text-right">
+      <h2 className="text-2xl font-bold mb-4 text-center text-gray-800"> انشاء حساب</h2>
+      <input
+        type="text"
+        placeholder="الرقم الوطني"
+        value={nationalID}
+        onChange={(e) => setNationalID(e.target.value)}
+        className={`w-full px-4 py-2 mb-4 text-right border rounded-lg focus:outline-none focus:ring-2 ${
+          errors.nationalID ? 'border-red-500' : 'border-gray-300'
+        }`}
+      />
+      {errors.nationalID && <p className="text-red-500 text-sm">{errors.nationalID}</p>}
+      <input
+        type="text"
+        placeholder="الاسم"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className={`w-full px-4 py-2 mb-4 text-right border rounded-lg focus:outline-none focus:ring-2 ${
+          errors.name ? 'border-red-500' : 'border-gray-300'
+        }`}
+      />
+      {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+      <button
+        onClick={handleSubmit}
+        className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+      >
+         انشاء
+      </button>
+      <Link to={"/login"} >عندك حساب</Link>
+    </div>
+  );
+}
+
+export default LoginForm;
