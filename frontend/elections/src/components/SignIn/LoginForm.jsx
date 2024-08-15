@@ -191,6 +191,7 @@
 
 
 ///////////////////////////////
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'; // استيراد مكتبة SweetAlert2
@@ -282,7 +283,10 @@ function LoginForm({ nationalID, setNationalID, name, setName, handleLogin }) {
       >
         انشاء
       </button>
-      <Link to="/login" className="block mt-4 text-blue-600 hover:underline">عندك حساب؟ تسجيل الدخول</Link>
+      {/* <Link to="/login" className="block mt-4 text-blue-600 hover:underline">عندك حساب؟ تسجيل الدخول</Link> */}
+      <p className="mt-4 text-center text-gray-600">
+           عندك حساب؟ <Link to="/login" className="text-blue-600 hover:underline"> تسجيل الدخول</Link>
+        </p>
     </div>
   );
 }

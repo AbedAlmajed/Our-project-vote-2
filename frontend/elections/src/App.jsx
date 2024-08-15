@@ -14,7 +14,8 @@ import ElectoralDistricts from "./components/ElectoralDistricts/ElectoralDistric
 
 const App = () => {
 
- 
+  const userId = 1; // Replace with dynamic user ID
+  const adminId = 1; // Replace with dynamic admin ID
   return (
     <Router>
       <Routes>
@@ -28,8 +29,8 @@ const App = () => {
         <Route path="/party-lists" element={<PartyListsPage />} />
         <Route path="/circle" element={<ElectoralDistricts />} />
 
-
       </Routes>
+
     </Router>
   );
 };
